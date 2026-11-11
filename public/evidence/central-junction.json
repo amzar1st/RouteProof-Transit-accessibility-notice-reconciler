@@ -1,0 +1,25 @@
+{
+  "station": "Central Junction (fictional)",
+  "validFrom": "2026-11-10T14:00Z",
+  "validUntil": "2026-11-10T15:00Z",
+  "routes": {
+    "platform-transfer": [
+      {"id": "east", "label": "East concourse", "elevators": ["CJ-01", "CJ-02"]},
+      {"id": "west", "label": "West concourse", "elevators": ["CJ-03", "CJ-04"]}
+    ],
+    "east-entrance": [
+      {"id": "east", "label": "East concourse", "elevators": ["CJ-01", "CJ-02"]}
+    ]
+  },
+  "aliases": {
+    "CJ-01": "CJ-01", "CJ-02": "CJ-02", "CJ-03": "CJ-03", "CJ-04": "CJ-04",
+    "East street lift": "CJ-01", "West street lift": "CJ-03"
+  },
+  "notices": [
+    {"id": "B01", "source": "station_bulletin", "equipment": "East street lift", "state": "open", "issued": "2026-11-10T14:06Z", "from": "2026-11-10T14:06Z", "until": "2026-11-10T15:00Z"},
+    {"id": "E01", "source": "equipment_feed", "equipment": "CJ-01", "state": "outage", "issued": "2026-11-10T14:08Z", "from": "2026-11-10T14:05Z", "until": "2026-11-10T15:00Z"},
+    {"id": "E02", "source": "equipment_feed", "equipment": "CJ-02", "state": "open", "issued": "2026-11-10T14:04Z", "from": "2026-11-10T14:04Z", "until": "2026-11-10T15:00Z"},
+    {"id": "E03", "source": "equipment_feed", "equipment": "West street lift", "state": "open", "issued": "2026-11-10T14:04Z", "from": "2026-11-10T14:04Z", "until": "2026-11-10T15:00Z"},
+    {"id": "E04", "source": "equipment_feed", "equipment": "CJ-04", "state": "open", "issued": "2026-11-10T14:15Z", "from": "2026-11-10T14:15Z", "until": "2026-11-10T15:00Z"}
+  ]
+}
