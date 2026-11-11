@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Inspect the notices behind reported step-free transit routes, with results finalized on GenLayer.">
+  <meta name="theme-color" content="#122c25">
+  <title>RouteProof · Transit accessibility evidence</title>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to route review</a>
+  <header class="masthead">
+    <div class="shell header-content">
+      <a class="brand" href="./"><span class="mark" aria-hidden="true">↗</span> RouteProof</a>
+      <nav aria-label="Main navigation"><a href="#evidence">Evidence</a><a id="contract-link" target="_blank" rel="noopener">Studionet ↗</a></nav>
+    </div>
+  </header>
+  <main id="main" class="shell">
+    <section class="hero">
+      <div><p class="eyebrow">TRANSIT ACCESSIBILITY</p><h1>Was the route<br>reported step-free?</h1>
+      <p class="intro">Compare station notices, see which elevators each path depends on, and verify the recorded result on GenLayer.</p></div>
+      <aside class="scope"><strong>Archived evidence</strong><p>The Central Junction station is fictional. The Jamaica–179 St case uses an archived MTA planned-work notice. Check the agency for current travel conditions.</p></aside>
+    </section>
+    <div class="dashboard">
+      <section class="panel control" aria-labelledby="query-title">
+        <h2 id="query-title">Review a route</h2>
+        <label for="scenario">Example</label>
+        <select id="scenario">
+          <option value="alternate">Alternate path available</option>
+          <option value="blocked">East path only</option>
+          <option value="uncertain">Missing elevator report</option>
+          <option value="mta">MTA planned outage</option>
+        </select>
+        <form id="query">
+          <label for="route">Station and route</label>
+          <select id="route"><option value="platform-transfer">Central Junction · Platform transfer</option><option value="east-entrance">Central Junction · East entrance</option><option value="jamaica-f">Jamaica–179 St · Manhattan-bound F</option></select>
+          <label for="at">Archived time (UTC)</label>
+          <input id="at" type="datetime-local" required>
+          <p id="date-note" class="fine"></p>
+          <button type="submit">Read finalized decision</button>
+        </form>
+        <details id="studio">
+          <summary>Submit a new check</summary>
+          <p>Use your built-in account in GenLayer Studio. Call <code>resolve</code> on the deployed contract with the route and UTC time below. Paste the transaction hash here to track finalization.</p>
+          <div class="params"><code id="call-route"></code><code id="call-at"></code></div>
+          <a id="studio-link" href="https://studio.genlayer.com/run-debug" target="_blank" rel="noopener">Open GenLayer Studio ↗</a>
+          <a class="subtle" id="setup-link" target="_blank" rel="noopener">Studio setup instructions ↗</a>
+        </details>
+      </section>
+      <div class="results">
+        <section class="panel decision" aria-labelledby="result-title">
+          <div class="row"><h2 id="result-title">Route decision</h2><span id="result-badge" class="badge">Awaiting read</span></div>
+          <p id="result" role="status" aria-live="polite">Reading the selected route on Studionet…</p>
+          <div id="paths" class="paths"></div>
+          <details id="proof" hidden><summary>Decision fingerprint</summary><code id="fingerprint"></code></details>
+        </section>
+        <section class="panel tracking" aria-labelledby="tracking-title">
+          <h2 id="tracking-title">Transaction status</h2>
+          <form id="track"><label for="hash">Studionet transaction hash</label><div class="track-fields"><input id="hash" placeholder="0x…" maxlength="66" required spellcheck="false" autocomplete="off"><button type="submit">Track</button></div></form>
+          <p id="tx-state" role="status" aria-live="polite">Select a recorded example or enter a hash from Studio.</p>
+          <a id="tx-link" target="_blank" rel="noopener" hidden>View transaction in Explorer ↗</a>
+        </section>
+      </div>
+    </div>
+    <section class="panel archive" id="evidence" aria-labelledby="evidence-title">
+      <div class="row"><h2 id="evidence-title">Notice archive</h2><a id="source-link" target="_blank" rel="noopener">View archive ↗</a></div>
+      <p id="archive-note"></p>
+      <ul id="notices"></ul>
+    </section>
+    <footer><span>RouteProof · GenLayer Studionet</span><a id="repo-link" target="_blank" rel="noopener">Source and verification ↗</a></footer>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
