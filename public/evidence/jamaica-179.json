@@ -1,0 +1,99 @@
+{
+  "station": "Jamaica\u2013179 St",
+  "sourceUrl": "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fnyct_ene.json",
+  "topologyUrl": "https://www.mta.info/document/148356",
+  "observedByUtc": "2026-11-11T15:21Z",
+  "sourceSha256": "74365a29278174797317dd413321805d5515ab8aec89dc875d20cb659a799f59",
+  "originalRows": [
+    {
+      "station": "Jamaica-179 St",
+      "borough": "",
+      "trainno": "F",
+      "equipment": "EL433",
+      "equipmenttype": "EL",
+      "serving": "mezzanine to terminal platform",
+      "ADA": "Y",
+      "outagedate": "11/20/2026 10:00:00 PM",
+      "estimatedreturntoservice": "11/21/2026 06:00:00 AM",
+      "reason": "Maintenance",
+      "isupcomingoutage": "Y",
+      "ismaintenanceoutage": "N"
+    },
+    {
+      "station": "Jamaica-179 St",
+      "borough": "",
+      "trainno": "F",
+      "equipment": "EL432",
+      "equipmenttype": "EL",
+      "serving": "mezzanine to Manhattan-bound platform",
+      "ADA": "Y",
+      "outagedate": "11/20/2026 10:00:00 PM",
+      "estimatedreturntoservice": "11/21/2026 06:00:00 AM",
+      "reason": "Maintenance",
+      "isupcomingoutage": "Y",
+      "ismaintenanceoutage": "N"
+    },
+    {
+      "station": "Jamaica-179 St",
+      "borough": "",
+      "trainno": "F",
+      "equipment": "EL431",
+      "equipmenttype": "EL",
+      "serving": "179 Pl & Hillside Ave (SE corner) to mezzanine for Manhattan-bound service",
+      "ADA": "Y",
+      "outagedate": "11/20/2026 10:00:00 PM",
+      "estimatedreturntoservice": "11/21/2026 06:00:00 AM",
+      "reason": "Maintenance",
+      "isupcomingoutage": "Y",
+      "ismaintenanceoutage": "N"
+    }
+  ],
+  "validFrom": "2026-11-21T03:00Z",
+  "validUntil": "2026-11-21T11:00Z",
+  "routes": {
+    "jamaica-f": [
+      {
+        "id": "hillside",
+        "label": "Hillside Avenue \u2192 Manhattan-bound F",
+        "elevators": [
+          "EL431",
+          "EL432"
+        ]
+      }
+    ]
+  },
+  "aliases": {
+    "EL431": "EL431",
+    "EL432": "EL432",
+    "EL433": "EL433"
+  },
+  "notices": [
+    {
+      "id": "MTA-EL433",
+      "source": "equipment_feed",
+      "equipment": "EL433",
+      "state": "outage",
+      "issued": "2026-11-11T15:21Z",
+      "from": "2026-11-21T03:00Z",
+      "until": "2026-11-21T11:00Z"
+    },
+    {
+      "id": "MTA-EL432",
+      "source": "equipment_feed",
+      "equipment": "EL432",
+      "state": "outage",
+      "issued": "2026-11-11T15:21Z",
+      "from": "2026-11-21T03:00Z",
+      "until": "2026-11-21T11:00Z"
+    },
+    {
+      "id": "MTA-EL431",
+      "source": "equipment_feed",
+      "equipment": "EL431",
+      "state": "outage",
+      "issued": "2026-11-11T15:21Z",
+      "from": "2026-11-21T03:00Z",
+      "until": "2026-11-21T11:00Z"
+    }
+  ]
+}
