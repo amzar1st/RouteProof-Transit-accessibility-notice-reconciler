@@ -16,6 +16,7 @@ button,a,summary,input,select{touch-action:manipulation}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.2rem;text-decoration:none}
 .masthead a{color:#f2faed}
 .mark{background:#c9ef83;color:#122c25;border-radius:8px;display:grid;place-items:center;width:30px;height:30px}
+.mark::before{content:"";width:13px;height:13px;background:linear-gradient(-45deg,transparent 44%,#122c25 45% 55%,transparent 56%);border-top:2px solid #122c25;border-right:2px solid #122c25;border-radius:1px}
 nav{display:flex;gap:22px;font-size:.92rem}
 .hero{padding:58px 0 35px;display:grid;grid-template-columns:1fr minmax(230px,310px);align-items:end;gap:28px}
 .eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.13em;color:#365949;margin:0 0 12px}

@@ -41,7 +41,7 @@ function renderEvidence() {
     ? 'MTA planned-work snapshot. The end of the scheduled window does not confirm restoration. '
     : 'Fictional station notices. The equipment feed takes precedence over station bulletins.';
   if (isMta) {
-    const source = element('a', 'MTA topology document ↗');
+    const source = element('a', 'MTA topology document');
     source.href = archive.topologyUrl;
     source.rel = 'noopener';
     source.target = '_blank';
@@ -172,8 +172,11 @@ function chooseExample() {
   hash.value = example.hash;
   renderEvidence();
   resetTrack();
-  if (example.hash) void trackTransaction();
-  else void loadDecision();
+  if (example.hash) {
+    ++readId;
+    show('Reading', 'Checking the recorded transaction on Studionet…');
+    void trackTransaction();
+  } else void loadDecision();
 }
 
 scenario.addEventListener('change', chooseExample);

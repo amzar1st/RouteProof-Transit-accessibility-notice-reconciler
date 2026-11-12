@@ -24,6 +24,10 @@ The deployment and all four calls finalized with successful GenVM execution. The
 
 Choose an example in the dashboard. RouteProof reads \`get_decision\` at the latest finalized state and tracks the selected transaction through GenLayerJS. Expand **Decision fingerprint** to see the decision commitment. Reviewers can also inspect the deployment, consensus history, execution result and receipts in Studio Explorer.
 
+## Additional browser checks
+
+The public dashboard displayed all four recorded outcomes. It showed no finalized record for `platform-transfer` at `2026-11-10T14:21Z` before the Studio write and displayed `ROUTE_AVAILABLE` after tracking its [successful finalized receipt](https://explorer-studio.genlayer.com/tx/0x5141f481572d9669677640fd08e78b40b243891a6461e066dcb8aa62fe88e078). An intentionally invalid route produced a [finalized execution error](https://explorer-studio.genlayer.com/tx/0x279a807ee428f8b5b7a2b7a774503c7d2d539579ff85c504518ad4128de5db31), and the dashboard rejected that receipt when it was supplied for a different query.
+
 ## Submit with the Studio account
 
 1. Open [GenLayer Studio](https://studio.genlayer.com/contracts) and select the built-in account.
