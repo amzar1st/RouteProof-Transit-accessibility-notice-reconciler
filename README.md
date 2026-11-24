@@ -18,15 +18,19 @@ Central Junction is a fictional archive for the two-path transfer demo. The Jama
 
 Requires Node.js 20.19+ or 22.12+ and Python 3.12+. Run the following from the repository root.
 
-\`\`\`sh
+```sh
 npm ci
 npm test
 npm run dev
 npm run build
-\`\`\`
+```
 
 The Python tests stub the SDK to exercise route and state logic locally. Studio verification covers actual GenVM execution and independent evidence retrieval. The browser uses the pinned GenLayerJS Studionet preset and requests finalized state directly from chain 61999. Studio signs writes with its built-in account. The dashboard tracks the returned hash and checks the target contract, decoded call arguments, finalization, and execution result. Browser access to the Studio signing account stays within Studio.
 
 ## Scope
 
 This release supports three routes across two fixed archive dates. Request IDs are unique by route and minute, writes are idempotent, and a failed archive read or hash mismatch never stores a verdict. The contract accepts no caller-provided URLs, maps, or notice text. Adding real routes requires separately reviewing their topology, data provenance and archive coverage. MTA feed updates after the recorded observation are outside this archive. The dashboard is an evidence viewer for reported accessibility, and travelers should consult the transit agency for current conditions.
+
+## Milestone v1: independent evidence audit
+
+The dashboard now independently verifies archive bytes, replays each finalized decision, explains notice selection and exports a JSON audit only after a complete match. The existing contract address, contract source and evidence commitments are preserved. See [the v1 change report and reproduction steps](docs/MILESTONE_V1.md).

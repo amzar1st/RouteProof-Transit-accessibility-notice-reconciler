@@ -5,6 +5,7 @@ import { createClient } from 'genlayer-js';
 import { studionet } from 'genlayer-js/chains';
 import { readFinal, readTransaction, receiptState } from '../src/chain.js';
 import { contractAddress, examples } from '../src/config.js';
+import { auditDecision } from '../src/audit.js';
 
 const deploymentHash = '0xa6af1acc6813769150427930d28f576e023a2604a106562df83e0687e59dfb71';
 const studioSigner = '0x62750Bb60A705B27B96867c60665D47cCF5B1Dd7';
@@ -48,5 +49,9 @@ for (const [name, query] of Object.entries(examples)) {
   assert.deepEqual(decision.paths.map((path) => path.status), expected[name].paths);
   const { decisionSha256, ...record } = decision;
   assert.equal(decisionSha256, sha256(canonical(record)));
-  console.log(name, decision.outcome, decisionSha256, query.hash);
+  const report = await auditDecision(decision, query, async path => new Response(
+    await readFile(new URL('../public' + path, import.meta.url)),
+  ));
+  assert.equal(report.verification, 'archive-hash-and-decision-replay');
+  console.log(name, decision.outcome, decisionSha256, query.hash, 'independent replay verified');
 }

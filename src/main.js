@@ -1,4 +1,5 @@
 import './style.css';
+import { auditDecision } from './audit.js';
 import { explorer, isHash, readFinal, readTransaction, receiptState } from './chain.js';
 import { archiveCommit, contractAddress, examples, repo } from './config.js';
 import demoArchive from '../public/evidence/central-junction.json';
@@ -15,6 +16,8 @@ const result = $('result');
 const badge = $('result-badge');
 let readId = 0;
 let trackId = 0;
+let auditId = 0;
+let auditReport = null;
 
 $('contract-link').href = explorer + '/address/' + contractAddress;
 $('setup-link').href = repo + '/blob/main/docs/LIVE_VERIFICATION.md#submit-with-the-studio-account';
@@ -64,6 +67,11 @@ function renderEvidence() {
 }
 
 function show(label, text, tone = '') {
+  ++auditId;
+  auditReport = null;
+  $('audit').hidden = true;
+  $('export-audit').disabled = true;
+  $('audit-trace').replaceChildren();
   badge.className = 'badge ' + tone;
   badge.textContent = label;
   result.textContent = text;
@@ -71,7 +79,7 @@ function show(label, text, tone = '') {
   $('proof').hidden = true;
 }
 
-function renderDecision(record) {
+async function renderDecision(record, query) {
   const outcomes = {
     ROUTE_AVAILABLE: ['Reported available', 'At least one mapped path has operating evidence for every required elevator.', 'open'],
     ROUTE_BLOCKED: ['Reported blocked', record.scope === 'mta_planned_snapshot'
@@ -103,6 +111,21 @@ function renderDecision(record) {
   $('paths').append(...cards);
   $('fingerprint').textContent = record.decisionSha256;
   $('proof').hidden = false;
+  const id = auditId;
+  $('audit').hidden = false;
+  $('audit-status').textContent = 'Checking archive bytes and replaying the decision…';
+  try {
+    const report = await auditDecision(record, query);
+    if (id !== auditId) return;
+    auditReport = { ...report, contractAddress, chainId: 61999 };
+    $('audit-status').textContent = 'Verified: archive SHA-256, full decision replay and fingerprint match. Historical evidence only.';
+    for (const entry of report.trace) {
+      $('audit-trace').append(element('li', entry.path + ' · ' + entry.equipment + ' · ' + (entry.notice ?? 'No notice') + ': ' + entry.reason));
+    }
+    $('export-audit').disabled = false;
+  } catch (error) {
+    if (id === auditId) $('audit-status').textContent = 'Audit failed: ' + error.message;
+  }
 }
 
 function validQuery(query) {
@@ -120,7 +143,7 @@ async function loadDecision() {
   try {
     const record = await readFinal(contractAddress, query);
     if (id !== readId) return;
-    if (record) renderDecision(record);
+    if (record) await renderDecision(record, query);
     else show('No finalized record', 'Submit this check in Studio, then track the transaction here.');
   } catch {
     if (id === readId) show('Read unavailable', 'Studionet did not return a usable decision. Try again.');
@@ -193,6 +216,15 @@ at.addEventListener('change', () => {
   resetTrack();
   hash.value = '';
   void loadDecision();
+});
+$('export-audit').addEventListener('click', () => {
+  if (!auditReport) return;
+  const url = URL.createObjectURL(new Blob([JSON.stringify(auditReport, null, 2)], { type: 'application/json' }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'routeproof-' + auditReport.decision.route + '-' + auditReport.decision.at.replaceAll(':', '') + '.json';
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
 $('query').addEventListener('submit', (event) => {
   event.preventDefault();
